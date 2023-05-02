@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-using UPB.PracticeThree.Managers;
+using UPB.CoreLogic.Managers;
 using Serilog;
 
 //create the logger and setup your sinks, filters and properties

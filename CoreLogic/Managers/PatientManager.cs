@@ -1,7 +1,7 @@
-using UPB.PracticeThree.Models;
+using UPB.CoreLogic.Models;
 //using Serilog;
 using System;
-namespace UPB.PracticeThree.Managers;
+namespace UPB.CoreLogic.Managers;
 
 public class PatientManager
 {

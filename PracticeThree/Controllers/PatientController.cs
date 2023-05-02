@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using UPB.PracticeThree.Models;
-using UPB.PracticeThree.Managers;
+using UPB.CoreLogic.Models;
+using UPB.CoreLogic.Managers;
 
 namespace UPB.TodoApi.Controllers;
 
