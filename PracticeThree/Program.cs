@@ -3,11 +3,6 @@ using UPB.CoreLogic.Managers;
 using UPB.PracticeThree.Middlewares;
 using Serilog;
 
-//create the logger and setup your sinks, filters and properties
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateBootstrapLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
@@ -28,6 +23,11 @@ var configurationBuilder = new ConfigurationBuilder()
 IConfiguration Configuration = configurationBuilder.Build();
 string siteTitle = Configuration.GetSection("Title").Value;
 string textPath = Configuration.GetSection("PatientFile").Value;
+
+//create the logger and setup your sinks, filters and properties
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(Configuration)
+    .CreateLogger();
 
 Log.Information("Path patients file: "+textPath);
 builder.Services.AddTransient<PatientManager>(ServiceProvider => new PatientManager(textPath));
