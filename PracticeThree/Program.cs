@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using UPB.PracticeThree.Managers;
 using Serilog;
 
 //create the logger and setup your sinks, filters and properties
@@ -25,6 +26,13 @@ var configurationBuilder = new ConfigurationBuilder()
 
 IConfiguration Configuration = configurationBuilder.Build();
 string siteTitle = Configuration.GetSection("Title").Value;
+string textPath = Configuration.GetSection("PatientFile").Value;
+
+builder.Services.AddTransient<PatientManager>(ServiceProvider => new PatientManager(textPath));
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(options =>
 {
