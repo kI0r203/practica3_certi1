@@ -23,6 +23,7 @@ var configurationBuilder = new ConfigurationBuilder()
 IConfiguration Configuration = configurationBuilder.Build();
 string siteTitle = Configuration.GetSection("Title").Value;
 string textPath = Configuration.GetSection("PatientFile").Value;
+string logPath = Configuration.GetSection("LogFile").Value;
 
 //create the logger and setup your sinks, filters and properties
 Log.Logger = new LoggerConfiguration()
@@ -30,6 +31,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 Log.Information("Path patients file: "+textPath);
+Log.Information("Path log file: "+logPath);
 builder.Services.AddTransient<PatientManager>(ServiceProvider => new PatientManager(textPath));
 
 builder.Services.AddControllers();
