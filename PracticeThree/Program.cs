@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using UPB.CoreLogic.Managers;
+using UPB.PracticeThree.Middlewares;
 using Serilog;
 
 //create the logger and setup your sinks, filters and properties
@@ -28,6 +29,7 @@ IConfiguration Configuration = configurationBuilder.Build();
 string siteTitle = Configuration.GetSection("Title").Value;
 string textPath = Configuration.GetSection("PatientFile").Value;
 
+Log.Information("Path patients file: "+textPath);
 builder.Services.AddTransient<PatientManager>(ServiceProvider => new PatientManager(textPath));
 
 builder.Services.AddControllers();
@@ -45,6 +47,8 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+app.UseGlobalExceptionHandler(Log.Logger);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsEnvironment(builder.Environment.EnvironmentName))
 {
@@ -53,9 +57,9 @@ if (app.Environment.IsEnvironment(builder.Environment.EnvironmentName))
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 
